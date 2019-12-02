@@ -34,19 +34,16 @@ public class UserConvertor implements convertor<User, UserDTO> {
     @Override
     public UserDTO convertToModel(User entity) {
 
-        UserDTO userModel = new UserDTO();
+        UserDTO userDTO= UserDTO.builder()
+                .contact_no(entity.getContact_no())
+                .city(entity.getCity())
+                .email(entity.getEmail())
+                .dob(entity.getDob())
+                .id(entity.getId())
+                .name(entity.getName())
+                .password(entity.getPassword()).build();
 
-        userModel.setContact_no(entity.getContact_no());
-        userModel.setEmail(entity.getEmail());
-        userModel.setCity(entity.getCity());
-        userModel.setDob(entity.getDob());
-        userModel.setGender(entity.getGender());
-        userModel.setId(entity.getId());
-        userModel.setName(entity.getName());
-        userModel.setPassword(entity.getPassword());
-
-
-        return userModel;
+        return userDTO;
     }
 
 

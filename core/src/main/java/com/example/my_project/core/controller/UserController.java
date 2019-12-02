@@ -20,11 +20,6 @@ public class UserController {
         return new ApiResponse<>(userService.getUserDetailsById(userId));
     }
 
-    @RequestMapping("get")
-    public ApiResponse<UserDTO> getUserWithRequestParamEmail(@RequestParam(value="email")String email) throws ApiException {
-        return new ApiResponse<>(userService.getUserDetailsByEmail(email));
-    }
-
     @PostMapping("create")
     public ApiResponse<UserDTO> create(@RequestBody UserDTO userModel) throws ApiException {
         return new ApiResponse<>(userService.createUser(userModel));
