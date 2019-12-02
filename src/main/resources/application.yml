@@ -1,0 +1,13 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /example
+
+spring:
+  datasource:
+    username: root
+    password: root1234
+    url: jdbc:mysql://localhost:3306/user_management
+    driver:
+      class: com.mysql.jdbc.Driver
+
