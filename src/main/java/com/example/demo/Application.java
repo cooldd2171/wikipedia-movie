@@ -9,12 +9,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(value = "com.example")
 @EnableJpaRepositories
 
-public class NinjaTraineeApplication {
+public class Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NinjaTraineeApplication.class, args);
-
-
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
 }
