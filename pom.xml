@@ -7,10 +7,10 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.5.RELEASE</version>
-		<relativePath/> <!-- lookup parent from com.example.my_project.repository -->
+		<relativePath/> <!-- lookup parent from com.example.my_project.persistancee -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>my_project</artifactId>
+	<groupId>com.shourya</groupId>
+	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>my_project</name>
 	<description>Demo project for Spring Boot</description>
