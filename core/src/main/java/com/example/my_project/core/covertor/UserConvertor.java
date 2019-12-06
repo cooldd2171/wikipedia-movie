@@ -17,7 +17,6 @@ public class UserConvertor implements convertor<User, UserDTO> {
     @Override
 
     public User convertToEntity(UserDTO model) {
-
         User user = new User();
         user.setId(model.getId());
         user.setCity(model.getCity());
@@ -33,7 +32,6 @@ public class UserConvertor implements convertor<User, UserDTO> {
 
     @Override
     public UserDTO convertToModel(User entity) {
-
         UserDTO userDTO= UserDTO.builder()
                 .contact_no(entity.getContact_no())
                 .city(entity.getCity())
