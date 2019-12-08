@@ -2,7 +2,7 @@ package com.shourya.demo.helper.error;
 
 public enum  ErrorCode {
 
-    USER_NOT_FOUND("com.example.my_project.User not found");
+    USER_NOT_FOUND("User not found");
     ErrorCode(String message) {
         this.message = message;
     }

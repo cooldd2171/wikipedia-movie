@@ -10,5 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public  interface UserRepository extends BaseRepo<User,Integer> {
 
      User findByIdAndDeleted(Integer id,Byte deleted);
-     User findByUserNameAndDeleted(String userName,byte deleted);
+     User findByUserName(String userName);
+     User findByUserNameAndPasswordAndDeleted(String userName, String password, byte deleted);
 }

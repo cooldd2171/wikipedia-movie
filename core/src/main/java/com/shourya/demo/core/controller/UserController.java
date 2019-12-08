@@ -3,10 +3,13 @@ package com.shourya.demo.core.controller;
 import com.shourya.demo.core.service.UserService;
 import com.shourya.demo.helper.error.ApiException;
 import com.shourya.demo.model.ApiResponse;
+import com.shourya.demo.model.Response;
 import com.shourya.demo.model.User.UserDTO;
+import com.shourya.demo.model.User.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "users/")
 
@@ -16,8 +19,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("get")
-    public ApiResponse<UserDTO> getUser(@RequestParam(value="id")int userId) throws ApiException {
-        return new ApiResponse<>(userService.getUserDetailsById(userId));
+    public ApiResponse<UserDTO> getUser(@RequestParam(value="userName")String userName) throws ApiException {
+        return new ApiResponse<>(userService.getUserDetailsByUserName(userName));
     }
 
     @PostMapping("create")
@@ -26,14 +29,19 @@ public class UserController {
     }
 
     @PostMapping("update")
-    public ApiResponse<UserDTO> update(@RequestBody UserDTO userModel) throws ApiException {
+    public ApiResponse<UserModel> update(@RequestBody UserModel userModel) throws ApiException {
         return new ApiResponse<>(userService.updateUser(userModel));
     }
 
-    @DeleteMapping
-    public ApiResponse<UserDTO> delete(@RequestParam(value = "id")Integer id) throws ApiException{
-        return null;
+    @GetMapping("delete")
+    public ApiResponse<UserDTO>  delete(@RequestParam(value = "userName")String userName) throws ApiException{
+        return new ApiResponse<>(userService.deleteUser(userName));
+
     }
 
+    @GetMapping("login")
+    public ApiResponse<UserDTO> login(@RequestParam(value="userName")String  userName,@RequestParam(value = "password") String password) throws ApiException {
+        return new ApiResponse<>(userService.verifyLogin(userName,password));
+    }
 
 }
