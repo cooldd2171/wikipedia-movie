@@ -22,15 +22,7 @@ public class UserDTO {
     private String city;
     private Date dateOfBirth;
     private String gender;
-    /*private Integer updatedBy;
-    private Integer createdBy;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;*/
     private byte deleted;
     private String contactNumber;
-
-
-    private Integer flightId;
-    private Integer price;
     private String date;
 }

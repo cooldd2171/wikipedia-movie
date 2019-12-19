@@ -1,13 +1,12 @@
 package com.shourya.demo.core.service.Impl;
 
-import com.shourya.demo.core.covertor.UserConvertor;
+import com.shourya.demo.core.covertor.UserConverter;
 import com.shourya.demo.core.service.UserService;
 import com.shourya.demo.model.User.UserModel;
 import com.shourya.demo.persistance.entity.User;
 import com.shourya.demo.helper.error.ApiException;
 import com.shourya.demo.helper.error.ErrorCode;
 import com.shourya.demo.model.User.UserDTO;
-import com.shourya.demo.persistance.entity.UserToFlightMap;
 import com.shourya.demo.persistance.repository.UserRepository;
 import com.shourya.demo.persistance.repository.UserToFlightRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Objects;
 
 @Slf4j
@@ -26,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UserConvertor userConvertor;
+    private UserConverter userConverter;
     @Autowired
     private UserToFlightRepository userToFlightRepository;
 
@@ -35,13 +33,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUserName(userName);
         if (Objects.isNull(user))
             throw new ApiException(ErrorCode.USER_NOT_FOUND);
-
-        Collection<UserToFlightMap> userToFlightMaps=userToFlightRepository.findByUserId(user.getId());
-
-        log.info("userToFlightMaps=> "+userToFlightMaps);
-
-        return userConvertor.convertToModel(user);
-
+        return userConverter.convertToModel(user);
     }
 
     @Transactional
@@ -51,12 +43,12 @@ public class UserServiceImpl implements UserService {
         if(Objects.nonNull(exists)){
             throw new ApiException("400","UserName Already Exists");
         }
-        User user = userConvertor.convertToEntity(userDTO);
+        User user = userConverter.convertToEntity(userDTO);
         user.setCreatedBy(1);
         user.setUpdatedBy(1);
         user.setDeleted((byte)0);
         user = userRepository.save(user);
-        return userConvertor.convertToModel(user);
+        return userConverter.convertToModel(user);
 
     }
 

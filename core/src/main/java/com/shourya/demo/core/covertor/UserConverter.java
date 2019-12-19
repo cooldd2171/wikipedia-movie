@@ -9,13 +9,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 
 @Service
-public class UserConvertor implements convertor<User, UserDTO> {
-
-    @Autowired
-    public UserRepository userRepository;
+public class UserConverter implements convertor<User, UserDTO> {
 
     @Override
-
     public User convertToEntity(UserDTO model) {
         User user = new User();
         user.setId(model.getId());
@@ -42,7 +38,5 @@ public class UserConvertor implements convertor<User, UserDTO> {
                 .userName(entity.getUserName())
                 .password(entity.getPassword()).build();
     }
-
-
 
 }

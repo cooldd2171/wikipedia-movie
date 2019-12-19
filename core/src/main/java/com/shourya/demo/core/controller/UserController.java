@@ -28,7 +28,7 @@ public class UserController {
         return new ApiResponse<>(userService.createUser(userModel));
     }
 
-    @PostMapping("update")
+    @PutMapping("update")
     public ApiResponse<UserModel> update(@RequestBody UserModel userModel) throws ApiException {
         return new ApiResponse<>(userService.updateUser(userModel));
     }
