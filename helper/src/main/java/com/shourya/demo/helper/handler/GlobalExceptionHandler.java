@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     ApiResponse handlerException(ApiException ex){
         ApiResponse apiOutput = new ApiResponse();
         apiOutput.setSuccess(false);
-        String errorCode=ex.getErrorCode();
+        Integer errorCode=ex.getErrorCode();
         if(errorCode!=null){
             apiOutput.setErrorCode(ex.getErrorCode());
             apiOutput.setErrorMessage(ex.getErrorMessage());

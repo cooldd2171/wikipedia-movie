@@ -78,7 +78,7 @@
 					<configuration>
 						<archive>
 							<manifest>
-								<mainClass>com.xyz.ABC.</mainClass>
+								<mainClass>com.shourya.demo.core.Application</mainClass>
 							</manifest>
 						</archive>
 						<descriptorRefs>
@@ -136,14 +136,21 @@
 					<configuration>
 						<archive>
 							<manifest>
-								<mainClass>com.zzz</mainClass>
+								<mainClass>com.shourya.demo.core.Application</mainClass>
 							</manifest>
 						</archive>
 						<descriptorRefs>
 							<descriptorRef>jar-with-dependencies</descriptorRef>
 						</descriptorRefs>
-						<finalName>${project.artifactId}-${project.version}-full</finalName>
+						<finalName>my-project</finalName>
 						<appendAssemblyId>false</appendAssemblyId>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+						<executable>true</executable>
 					</configuration>
 				</plugin>
 			</plugins>

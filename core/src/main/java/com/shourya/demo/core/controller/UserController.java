@@ -44,4 +44,10 @@ public class UserController {
         return new ApiResponse<>(userService.verifyLogin(userName,password));
     }
 
+    @GetMapping("userName/validate")
+    public boolean validate(@RequestParam(value="userName")String  userName) throws ApiException {
+        return (userService.verifyUserName(userName));
+    }
+
+
 }

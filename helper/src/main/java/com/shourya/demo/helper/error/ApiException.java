@@ -5,16 +5,16 @@ public class ApiException extends Exception {
 
     public ApiException(ErrorCode errorCode){
         super(errorCode.getMessage());
-        this.errorCode=errorCode.name();
+        this.errorCode=errorCode.getCode();
         this.errorMessage=errorCode.getMessage();
     }
-    public ApiException(String errorCode,String errorMessage){
+    public ApiException(Integer errorCode,String errorMessage){
         super(errorMessage);
         this.errorCode=errorCode;
         this.errorMessage=errorMessage;
     }
 
-    public String getErrorCode() {
+    public Integer getErrorCode() {
         return errorCode;
     }
 
@@ -22,7 +22,7 @@ public class ApiException extends Exception {
         return errorMessage;
     }
 
-    public void setErrorCode(String errorCode) {
+    public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
     }
 
@@ -30,7 +30,8 @@ public class ApiException extends Exception {
         this.errorMessage = errorMessage;
     }
 
-    private String errorCode,errorMessage;
+    private String errorMessage;
+    private Integer errorCode;
 
 
 

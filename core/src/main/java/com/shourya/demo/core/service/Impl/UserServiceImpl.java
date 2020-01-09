@@ -39,9 +39,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDTO createUser(UserDTO userDTO) throws ApiException {
         String userName =userDTO.getUserName();
-        User exists=userRepository.findByUserName(userName);
-        if(Objects.nonNull(exists)){
-            throw new ApiException("400","UserName Already Exists");
+        User existingUser=userRepository.findByUserName(userName);
+        if(Objects.nonNull(existingUser)){
+            throw new ApiException(ErrorCode.USER_ALREADY_EXISTS);
         }
         User user = userConverter.convertToEntity(userDTO);
         user.setCreatedBy(1);
@@ -82,5 +82,10 @@ public class UserServiceImpl implements UserService {
         if (Objects.isNull(user))
             throw new ApiException(ErrorCode.USER_NOT_FOUND);
         return null;
+    }
+
+    @Override
+    public boolean verifyUserName(String userName) {
+        return false;
     }
 }

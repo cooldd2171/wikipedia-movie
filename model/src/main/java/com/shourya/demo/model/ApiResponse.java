@@ -3,12 +3,12 @@ package com.shourya.demo.model;
 public class ApiResponse<T> {
 
 
-    private String errorCode;
+    private Integer errorCode;
     private String errorMessage;
     private boolean success=true;
     private T data;
 
-    public ApiResponse(String errorCode, String errorMessage) {
+    public ApiResponse(Integer errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
         this.success=false;
@@ -22,11 +22,11 @@ public class ApiResponse<T> {
         this.data = data;
     }
 
-    public String getErrorCode() {
+    public Integer getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(String errorCode) {
+    public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
     }
 

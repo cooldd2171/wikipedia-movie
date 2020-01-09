@@ -20,7 +20,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 import java.util.HashMap;
 
-//import org.flywaydb.core.Flyway;
 
 @Slf4j
 @Configuration

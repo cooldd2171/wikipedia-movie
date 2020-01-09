@@ -10,5 +10,4 @@ import java.io.Serializable;
 @Transactional
 public interface BaseRepo<T,ID extends Serializable>  extends JpaRepository<T,ID> {
 
-
 }

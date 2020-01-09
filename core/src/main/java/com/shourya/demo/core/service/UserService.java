@@ -10,4 +10,5 @@ public interface UserService {
     UserModel updateUser(UserModel userModel) throws ApiException;
     UserDTO deleteUser(String userName) throws ApiException;
     UserDTO verifyLogin(String userName, String password) throws ApiException;
+    boolean verifyUserName(String userName);
 }
