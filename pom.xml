@@ -12,7 +12,7 @@
 	<groupId>com.shourya</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>my_project</name>
+	<name>wikipedia-movie</name>
 	<description>Demo project for Spring Boot</description>
 
 	<modules>
@@ -142,7 +142,7 @@
 						<descriptorRefs>
 							<descriptorRef>jar-with-dependencies</descriptorRef>
 						</descriptorRefs>
-						<finalName>my-project</finalName>
+						<finalName>wikipedia-movie</finalName>
 						<appendAssemblyId>false</appendAssemblyId>
 					</configuration>
 				</plugin>
