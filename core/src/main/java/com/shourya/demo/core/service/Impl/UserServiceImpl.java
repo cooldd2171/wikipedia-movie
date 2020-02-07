@@ -8,7 +8,6 @@ import com.shourya.demo.helper.error.ApiException;
 import com.shourya.demo.helper.error.ErrorCode;
 import com.shourya.demo.model.User.UserDTO;
 import com.shourya.demo.persistance.repository.UserRepository;
-import com.shourya.demo.persistance.repository.UserToFlightRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,9 +24,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private UserConverter userConverter;
-    @Autowired
-    private UserToFlightRepository userToFlightRepository;
-
 
     public UserDTO getUserDetailsByUserName(String userName) throws ApiException {
         User user = userRepository.findByUserName(userName);
