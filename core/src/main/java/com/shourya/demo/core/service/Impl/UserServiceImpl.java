@@ -2,6 +2,7 @@ package com.shourya.demo.core.service.Impl;
 
 import com.shourya.demo.core.covertor.UserConverter;
 import com.shourya.demo.core.service.UserService;
+import com.shourya.demo.helper.helper.RestService;
 import com.shourya.demo.model.User.UserModel;
 import com.shourya.demo.persistance.entity.User;
 import com.shourya.demo.helper.error.ApiException;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigInteger;
 import java.util.Objects;
