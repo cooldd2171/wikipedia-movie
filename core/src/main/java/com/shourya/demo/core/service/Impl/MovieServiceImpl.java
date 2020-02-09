@@ -1,6 +1,7 @@
 package com.shourya.demo.core.service.Impl;
 
 import com.shourya.demo.core.service.MovieService;
+import com.shourya.demo.helper.error.ApiException;
 import com.shourya.demo.helper.helper.RestService;
 import com.shourya.demo.helper.validator.MovieValidator;
 import com.shourya.demo.model.Movie.MovieModel;
@@ -40,7 +41,7 @@ public class MovieServiceImpl implements MovieService {
             if (MapUtils.isNotEmpty(processedData)) {
                 if (movieValidator.validateData(processedData)) {
                     Movie movie = movieTransformer.transform(processedData, doc);
-                    movie.setName(movieName);
+                    movie.setTitle(movieName);
                     movieRepository.save(movie);
                     movies.add(movieName);
                 }
@@ -50,7 +51,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Collection<String> findAllMovieNames(Integer sortByTitle, Integer sortByDate) {
+    public Collection<String> getAllMovieNames(Integer sortByTitle, Integer sortByDate) {
         List<Movie> movies = new ArrayList<>();
 
         if (Objects.nonNull(sortByDate)) {
@@ -58,20 +59,24 @@ public class MovieServiceImpl implements MovieService {
             movies = movieRepository.findAll(Sort.by(dateSort, "releaseDate"));
         } else if (Objects.nonNull(sortByTitle)) {
             Sort.Direction titleSort = sortByTitle == 1 ? Sort.Direction.ASC : Sort.Direction.DESC;
-            movies = movieRepository.findAll(Sort.by(titleSort, "name"));
+            movies = movieRepository.findAll(Sort.by(titleSort, "title"));
         } else {
             movies = movieRepository.findAll();
         }
         Collection<String> titles = new ArrayList<>();
         for (Movie movie : movies) {
-            titles.add(movie.getName());
+            titles.add(movie.getTitle());
         }
         return titles;
     }
 
     @Override
-    public MovieModel getData(String title) {
-        return movieRepository.findByName(title);
+    public MovieModel getData(String title) throws ApiException {
+        MovieModel movieModel = movieRepository.findByTitle(title);
+        if(Objects.isNull(movieModel)){
+            throw new ApiException(400,"Please try writing the correct name of the movie");
+        }
+        return movieModel;
     }
 
 

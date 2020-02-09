@@ -5,20 +5,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@XmlRootElement
 public class MovieModel {
-    private String name;
+    private String title;
     private String director;
     private String producer;
     private String actors;
     private String musicComposer;
     private String productionHouse;
-    private Date releaseDate;
+    private String releaseDate;
     private String duration;
     private String language;
     private String budget;

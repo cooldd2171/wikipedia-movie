@@ -12,5 +12,5 @@ import java.util.List;
 
 @Repository
 public interface MovieRepository extends MongoRepository<Movie, String> {
-    MovieModel findByName(String name);
+    MovieModel findByTitle(String name);
 }

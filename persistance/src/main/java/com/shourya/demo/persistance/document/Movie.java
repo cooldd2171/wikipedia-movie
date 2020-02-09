@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie extends BaseDocumentStringID {
-    private String name;
+    private String title;
     private String director;
     private String producer;
     private String actors;
