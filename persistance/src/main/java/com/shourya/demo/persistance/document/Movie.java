@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Document(collection = "Movie")
 @Data
 @Builder
@@ -18,7 +20,7 @@ public class Movie extends BaseDocumentStringID {
     private String actors;
     private String musicComposer;
     private String productionHouse;
-    private String releaseDate;
+    private Date releaseDate;
     private String duration;
     private String language;
     private String budget;

@@ -2,6 +2,9 @@ package com.shourya.demo.core.service.Impl;
 
 import com.shourya.demo.core.service.MovieService;
 import com.shourya.demo.helper.helper.RestService;
+import com.shourya.demo.helper.validator.MovieValidator;
+import com.shourya.demo.model.Movie.MovieModel;
+import com.shourya.demo.core.Transformer.MovieTransformer;
 import com.shourya.demo.model.enums.MovieDataEnum;
 import com.shourya.demo.persistance.document.Movie;
 import com.shourya.demo.persistance.repository.MovieRepository;
@@ -11,9 +14,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.text.ParseException;
 import java.util.*;
 
 @Service
@@ -24,31 +29,51 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepository movieRepository;
 
     @Override
-    public void getMetaData(Collection<String> movieNames) {
-
+    public Collection<String> getMetaData(Collection<String> movieNames) throws ParseException {
+        MovieTransformer movieTransformer = new MovieTransformer();
+        MovieValidator movieValidator = new MovieValidator();
+        Collection<String> movies = new ArrayList<>();
         for (String movieName : movieNames) {
             String wikiData = restService.getData(movieName);
             Document doc = Jsoup.parse(wikiData);
             Map<String, String> processedData = processData(doc);
             if (MapUtils.isNotEmpty(processedData)) {
-                Movie movie = Movie.builder()
-                        .name(movieName)
-                        .director(processedData.get(MovieDataEnum.DIRECTED_BY.getValue()))
-                        .producer(processedData.get(MovieDataEnum.PRODUCED_BY.getValue()))
-                        .actors(processedData.get(MovieDataEnum.STARRING.getValue()))
-                        .musicComposer(processedData.get(MovieDataEnum.MUSIC_BY.getValue()))
-                        .productionHouse(Objects.nonNull(processedData.get(MovieDataEnum.PRODUCTION_HOUSE.getValue())) ? processedData.get(MovieDataEnum.PRODUCTION_HOUSE.getValue()) : processedData.get(MovieDataEnum.PRODUCTION_HOUSE_2.getValue()))
-                        .releaseDate(this.computeReleaseDate(processedData.get(MovieDataEnum.RELEASE_DATE.getValue())))
-                        .duration(processedData.get(MovieDataEnum.RUNNING_TIME.getValue()))
-                        .language(processedData.get(MovieDataEnum.LANGUAGE.getValue()))
-                        .budget(processedData.get((MovieDataEnum.BUDGET.getValue())))
-                        .boxOfficeCollection(processedData.get(MovieDataEnum.BOX_OFFICE.getValue()))
-                        .description(doc.select("p").get(1).text().toString())
-                        .build();
-                movieRepository.save(movie);
+                if (movieValidator.validateData(processedData)) {
+                    Movie movie = movieTransformer.transform(processedData, doc);
+                    movie.setName(movieName);
+                    movieRepository.save(movie);
+                    movies.add(movieName);
+                }
             }
         }
+        return movies;
     }
+
+    @Override
+    public Collection<String> findAllMovieNames(Integer sortByTitle, Integer sortByDate) {
+        List<Movie> movies = new ArrayList<>();
+
+        if (Objects.nonNull(sortByDate)) {
+            Sort.Direction dateSort = sortByDate == 1 ? Sort.Direction.ASC : Sort.Direction.DESC;
+            movies = movieRepository.findAll(Sort.by(dateSort, "releaseDate"));
+        } else if (Objects.nonNull(sortByTitle)) {
+            Sort.Direction titleSort = sortByTitle == 1 ? Sort.Direction.ASC : Sort.Direction.DESC;
+            movies = movieRepository.findAll(Sort.by(titleSort, "name"));
+        } else {
+            movies = movieRepository.findAll();
+        }
+        Collection<String> titles = new ArrayList<>();
+        for (Movie movie : movies) {
+            titles.add(movie.getName());
+        }
+        return titles;
+    }
+
+    @Override
+    public MovieModel getData(String title) {
+        return movieRepository.findByName(title);
+    }
+
 
     private Map<String, String> processData(Document doc) {
         Collection<String> keys = Arrays.asList(
@@ -99,9 +124,4 @@ public class MovieServiceImpl implements MovieService {
         return value;
     }
 
-    private String computeReleaseDate(String release) {
-        int l1 = release.indexOf("(");
-        int l2 = release.indexOf(")");
-        return release.substring(l1 + 1, l2);
-    }
 }
